@@ -1,0 +1,1 @@
+Just some code I keep finding myself having to rewrite.  I'll add more as I run across it.
