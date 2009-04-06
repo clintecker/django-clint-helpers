@@ -9,7 +9,7 @@ def site(request):
     """
     Returns context variables required by apps that use Django's Sites app.
     """
-    current_site = Site.get_current()
+    current_site = Site.objects.get_current()
     return {
         'site': current_site,
     }
