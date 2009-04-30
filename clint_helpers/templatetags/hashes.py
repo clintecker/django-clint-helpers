@@ -1,29 +1,30 @@
 from django import template
+hashlib = False
 try:
-  from hashlib import md5 as gen_md5
-  from hashlib import sha1 as gen_sha
-  hlib = True
+  from hashlib import md5
+  from hashlib import sha1
+  hashlib = True
 except:
-  import md5 as gen_md5
-  import sha as gen_sha
-  hlib = False
+  import md5
+  import sha
  
 register = template.Library()
  
-@register.filter
-def md5(value):
-  "Returns the hex digest of an MD5 hash of a string"
-  if hlib:
-    h = gen_md5(value)
-  else:
-    h = gen_md5.new(value)
-  return h.hexdigest()
-    
-@register.filter
-def gen_sha1(value):
-  "Returns the hex digest of an SHA-1 hash of a string"
-  if hlib:
-    h = gen_sha(value)
-  else:
-    h = gen_sha.new(value)
-  return h.hexdigest()
+def md5_filter(value):
+    "Returns the hex digest of an MD5 hash of a string"
+    if hashlib:
+      h = md5(value)
+    else:
+      h = md5.new(value)
+    return h.hexdigest()
+
+def sha1_filter(value):
+    "Returns the hex digest of an SHA-1 hash of a string"
+    if hashlib:
+      h = sha1(value)
+    else:
+      h = sha.new(value)
+    return h.hexdigest()
+
+register.filter('md5', md5_filter)
+register.filter('sha1', sha1_filter)
